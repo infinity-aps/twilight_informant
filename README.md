@@ -14,11 +14,11 @@ Specifically, this client will be able to act as a cgm to a closed loop by searc
 
 Goal Progress:
 
-[ ] - Read last x minutes of CGM `entries` from Nightscout
-[ ] - Read target bg range from Nightscout
-[ ] - Write `entries` to Nightscout
-[ ] - Write `treatments` to Nighscout
-[ ] - report loop, battery, and profile status to Nightscout
+- [ ] Read last x minutes of CGM `entries` from Nightscout
+- [ ] Read target bg range from Nightscout
+- [ ] Write `entries` to Nightscout
+- [ ] Write `treatments` to Nighscout
+- [ ] report loop, battery, and profile status to Nightscout
 
 ## Installation
 
