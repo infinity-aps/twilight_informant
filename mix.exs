@@ -21,7 +21,8 @@ defmodule TwilightInformant.Mixfile do
   def deps do
     [{:httpoison, "~> 0.12"},
      {:poison, "~> 3.1"},
-     {:timex, "~> 3.0"}]
+     {:timex, "~> 3.0"},
+     {:ex_doc, ">= 0.0.0", only: :dev}]
   end
 
   defp description do
