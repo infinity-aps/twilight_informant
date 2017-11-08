@@ -15,13 +15,16 @@ defmodule TwilightInformant.Mixfile do
   end
 
   def application do
-    [extra_applications: [:logger, :httpoison]]
+    [
+      mod: {TwilightInformant, []},
+      extra_applications: [:logger, :httpoison]]
   end
 
   def deps do
     [{:httpoison, "~> 0.12"},
      {:poison, "~> 3.1"},
      {:timex, "~> 3.0"},
+     {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
      {:ex_doc, ">= 0.0.0", only: :dev}]
   end
 
