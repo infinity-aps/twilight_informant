@@ -1,7 +1,7 @@
 defmodule TwilightInformant do
   alias TwilightInformant.HTTP
   @moduledoc """
-  TwilightInformant provides an HTTP Elixir interface to the NightScout API.
+  TwilightInformant provides an HTTP Elixir interface to the Nightscout API.
 
   ## Usage
 
@@ -27,17 +27,40 @@ defmodule TwilightInformant do
 
       {:ok, status} = TwilightInformant.status()
       {:ok, profile} = TwilightInformant.profile()
-      {:ok, entries} = TwilightInformant.entries(200)
+      {:ok, entries} = TwilightInformant.entries(count: 200)
 
   status, profile and entries are Maps converted from the JSON response from the Nightscout server.
   """
 
   @doc """
-  Returns the count last entries.
+  Returns entries. More concrete queries can be made with query_params.
+  For example:
+      TwilightInformant.entries(count: 200)
   """
-  def entries(count) do
-    HTTP.get("entries", count: count)
+  def entries(query_params \\ []) do
+    HTTP.get("entries", query_params)
   end
+
+  @doc """
+  Returns treatments. More concrete queries can be made with query_params.
+  """
+  def treatments(query_params \\ []) do
+    HTTP.get("treatments", query_params)
+  end
+
+  @doc """
+  Writes entries to the server.
+  """
+  def post_entries(%{} = map) do
+    HTTP.post("entries", map)
+  end
+
+  @doc """
+  Writes treatments to the server.
+  def post_treatments(%{} = map) do
+    HTTP.post("treatments", map)
+  end
+  """
 
   @doc """
   Returns the server side status, default settings and capabilities.
@@ -51,21 +74,10 @@ defmodule TwilightInformant do
   """
   def thresholds() do
     case status() do
-      {:ok, response} ->
-        %{"settings" => %{"thresholds" => thresholds}} = response
+      {:ok, %{"settings" => %{"thresholds" => thresholds}} = response} ->
         thresholds
-      {:ok, response, status_code} ->
-        {:ok, response, status_code}
-      {:error, %{reason: reason}} ->
-        {:error, %{reason: reason}}
+      other -> other
     end
-  end
-
-  @doc """
-  Returns the server side status, default settings and capabilities.
-  """
-  def treatments() do
-    HTTP.get("treatments")
   end
 
   @doc """

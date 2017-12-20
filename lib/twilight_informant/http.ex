@@ -8,7 +8,6 @@ defmodule TwilightInformant.HTTP do
 
   Args:
     # path - the JSON api path that adds up to the URL
-    # body - when posting, information to write to the server
     # query_params - keyword list with query parameters given by the user
   """
   def get(path, query_params \\ []) do
@@ -20,11 +19,12 @@ defmodule TwilightInformant.HTTP do
 
   Args:
     # path - the JSON api path that adds up to the URL
-    # body - information to write to the server
+    # body - a Map with the information to write to the server
     # query_params - keyword list with query parameters given by the user
   """
-  def post(path, body, query_params \\ []) do
-    call(path, :post, body, query_params)
+  def post(path, %{} = body, query_params \\ []) do
+    {:ok, encoded} = Poison.encode(body)
+    call(path, :post, encoded, query_params)
   end
 
   @doc """
@@ -33,7 +33,7 @@ defmodule TwilightInformant.HTTP do
   Args:
     # path - the JSON api path that adds up to the URL
     # method - it can be :get (read) or :post (write)
-    # body - when posting, information to write to the server
+    # body - JSON encoded information to write to the server
     # query_params - keyword list with query parameters given by the user
   """
   def call(path, method, body \\ "", query_params \\ []) do
@@ -42,7 +42,7 @@ defmodule TwilightInformant.HTTP do
        path |> build_url,
        body,
        @headers,
-       query_params |> add_httpoison_opts |> add_api_token)
+       query_params |> add_api_token |> add_httpoison_opts)
        |> handle_response
   end
 
