@@ -42,7 +42,7 @@ defmodule TwilightInformant.HTTP do
        path |> build_url,
        body,
        @headers,
-       params: query_params |> add_api_token |> add_httpoison_opts)
+       [params: query_params |> add_api_token] |> add_httpoison_opts)
        |> handle_response
   end
 
