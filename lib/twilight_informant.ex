@@ -51,16 +51,16 @@ defmodule TwilightInformant do
   @doc """
   Writes entries to the server.
   """
-  def post_entries(%{} = map) do
-    HTTP.post("entries", map)
+  def post_entries(entries) do
+    HTTP.post("entries", entries)
   end
 
   @doc """
   Writes treatments to the server.
-  def post_treatments(%{} = map) do
-    HTTP.post("treatments", map)
-  end
   """
+  def post_treatments(treatments) do
+    HTTP.post("treatments", treatments)
+  end
 
   @doc """
   Returns the server side status, default settings and capabilities.

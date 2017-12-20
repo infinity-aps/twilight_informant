@@ -22,7 +22,7 @@ defmodule TwilightInformant.HTTP do
     # body - a Map with the information to write to the server
     # query_params - keyword list with query parameters given by the user
   """
-  def post(path, %{} = body, query_params \\ []) do
+  def post(path, body, query_params \\ []) do
     {:ok, encoded} = Poison.encode(body)
     call(path, :post, encoded, query_params)
   end
