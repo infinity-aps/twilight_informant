@@ -2,6 +2,13 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
+dev_secret_path = Path.expand("config/dev.secret.exs")
+
+if Mix.env in [:dev, :test] do
+  if File.exists?(dev_secret_path) do
+    import_config "dev.secret.exs"
+  end
+end
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this
 # file won't be loaded nor affect the parent project. For this reason,
