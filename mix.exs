@@ -16,7 +16,6 @@ defmodule TwilightInformant.Mixfile do
 
   def application do
     [
-      mod: {TwilightInformant.Configuration, []},
       extra_applications: [:logger, :httpoison]]
   end
 
