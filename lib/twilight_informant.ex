@@ -74,7 +74,7 @@ defmodule TwilightInformant do
   """
   def thresholds() do
     case status() do
-      {:ok, %{"settings" => %{"thresholds" => thresholds}} = response} ->
+      {:ok, %{"settings" => %{"thresholds" => thresholds}}} ->
         thresholds
       other -> other
     end
